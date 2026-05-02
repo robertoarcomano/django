@@ -1,5 +1,8 @@
+from django.shortcuts import render
+
+# Create your views here.
 from django.http import HttpResponse
-from products.models import Product
+from app.models import Product
 from django.shortcuts import render
 
 products = []
@@ -24,4 +27,3 @@ def index(request):
             'bodystop': 'bodystop',
         }
     )
-

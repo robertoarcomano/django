@@ -11,4 +11,3 @@ def index(request):
             'bodystop': 'bodystop',
         }
     )
-
