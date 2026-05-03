@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.http import HttpResponse
 from app.models import Product
 from django.shortcuts import render
+from .forms import ProductForm
 
 products = []
 for i in range(1,10):
@@ -11,9 +12,7 @@ for i in range(1,10):
 
 def index(request):
     product = Product.objects.first()
-    if product:
-        print(product.name)
-    else:
+    if not product:
         product = Product()
         product.id=1
         product.name='name1'
@@ -27,3 +26,17 @@ def index(request):
             'bodystop': 'bodystop',
         }
     )
+    
+def product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('success')
+    else:
+        form = ProductForm()
+
+    return render(request, 'product.html', {'form': form})    
+
+def success(request):
+    return render(request, 'success.html')    
